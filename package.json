@@ -1,0 +1,49 @@
+{
+  "name": "@stefanprobst/favicons",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:stefanprobst/favicons.git",
+  "author": "Stefan Probst <stefanprobst@kolabnow.com>",
+  "license": "MIT",
+  "bin": {
+    "create-favicons": "src/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "format": "prettier . -l --ignore-path .gitignore",
+    "format:fix": "yarn format --write",
+    "lint": "eslint . --ignore-path .gitignore",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "mri": "^1.1.6",
+    "sharp": "^0.26.0",
+    "to-ico": "^1.1.5"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
+    "prettier": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=12.9",
+    "yarn": "^1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": "eslint --cache --fix",
+    "*.(json,md,mdx)": "prettier --write"
+  }
+}
