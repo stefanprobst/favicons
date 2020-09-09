@@ -168,36 +168,37 @@ function formatFileSize(size) {
 }
 
 function getOptions() {
-  const args = parseArgs(process.argv.slice(2))
+  const args = parseArgs(process.argv.slice(2), {
+    alias: {
+      input: 'i',
+      output: 'o',
+      name: 'n',
+      short: 's',
+      color: 'c',
+      help: 'h',
+    },
+  })
   return {
-    input: args.i || args.input,
-    output: args.o || args.output,
-    name: args.n || args.name,
-    shortName: args.s || args.short,
-    color: args.c || args.color,
+    input: args.input,
+    output: args.output,
+    name: args.name,
+    shortName: args.short,
+    color: args.color,
+    help: args.help,
   }
 }
 
 async function run() {
-  const { input, output, name, shortName, color } = getOptions()
+  const { input, output, name, shortName, color, help } = getOptions()
 
   if (
+    help ||
     !input ||
     !output ||
     typeof input !== 'string' ||
     typeof output !== 'string'
   ) {
-    console.log(
-      [
-        'Usage: create-favicons -i [FILE] -o [FOLDER] [...OPTIONS]\n',
-        'Options:\n',
-        '  -i, --input\tpath to input file',
-        '  -o, --output\tpath to output folder',
-        '  -n, --name\tname for webmanifest (optional)',
-        '  -s, --short\tshort name for webmanifest (optional)',
-        '  -c, --color\ttheme color for webmanifest (optional)\n',
-      ].join('\n'),
-    )
+    showHelpMessage()
     return Promise.resolve()
   }
 
@@ -239,6 +240,21 @@ async function run() {
     log.error(error)
     return Promise.resolve()
   }
+}
+
+function showHelpMessage() {
+  console.log(
+    [
+      'Usage: create-favicons -i [FILE] -o [FOLDER] [...OPTIONS]\n',
+      'Options:\n',
+      '  -i, --input\tpath to input file',
+      '  -o, --output\tpath to output folder',
+      '  -n, --name\tname for webmanifest (optional)',
+      '  -s, --short\tshort name for webmanifest (optional)',
+      '  -c, --color\ttheme color for webmanifest (optional)',
+      '  -h, --help\tshow this help message\n',
+    ].join('\n'),
+  )
 }
 
 run().catch(log.error)
