@@ -80,7 +80,7 @@ async function generate({
       return Promise.all(
         size.map((s) => {
           const density = getDensity(s, inputMetadata)
-          return sharp(inputFilePath, { density }).resize(s, s).toBuffer()
+          return sharp(inputFilePath, { density }).png().resize(s, s).toBuffer()
         }),
       )
         .then((buffers) => toIco(buffers))
