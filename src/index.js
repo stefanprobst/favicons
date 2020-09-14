@@ -27,7 +27,7 @@ async function generate({
   inputFilePath,
   outputFolder,
   name = '',
-  shortName = '',
+  shortName,
   color,
 }) {
   /** create webmanifest */
@@ -40,7 +40,7 @@ async function generate({
 
   const webManifest = {
     name,
-    short_name: shortName,
+    short_name: shortName || name,
     icons: [
       {
         src: '/android-chrome-192x192.png',
