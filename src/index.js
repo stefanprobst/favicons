@@ -29,6 +29,8 @@ async function generate({
   name = '',
   shortName,
   color,
+  maskable,
+  startUrl,
 }) {
   /** create webmanifest */
 
@@ -54,9 +56,12 @@ async function generate({
       },
     ],
     theme_color: themeColor,
-    background_color: '#ffffff',
+    background_color: themeColor,
     display: 'standalone',
-    start_url: '/',
+    start_url: startUrl || '/',
+  }
+  if (maskable) {
+    webManifest.icons.forEach((icon) => (icon.purpose = 'any maskable'))
   }
 
   const webManifestFile = join(outputFolder, WEB_MANIFEST)
@@ -175,6 +180,8 @@ function getOptions() {
       name: 'n',
       short: 's',
       color: 'c',
+      url: 'u',
+      maskable: 'm',
       help: 'h',
     },
   })
@@ -184,12 +191,23 @@ function getOptions() {
     name: args.name,
     shortName: args.short,
     color: args.color,
+    startUrl: args.url,
+    maskable: args.maskable,
     help: args.help,
   }
 }
 
 async function run() {
-  const { input, output, name, shortName, color, help } = getOptions()
+  const {
+    input,
+    output,
+    name,
+    shortName,
+    color,
+    maskable,
+    startUrl,
+    help,
+  } = getOptions()
 
   if (
     help ||
@@ -226,6 +244,8 @@ async function run() {
       name,
       shortName,
       color,
+      maskable,
+      startUrl,
     })
 
     log.success(
@@ -252,6 +272,8 @@ function showHelpMessage() {
       '  -n, --name\tname for webmanifest (optional)',
       '  -s, --short\tshort name for webmanifest (optional)',
       '  -c, --color\ttheme color for webmanifest (optional)',
+      '  -m, --maskable\tmark images as maskable (optional)',
+      '  -u, --url\tset the start_url path (optional)',
       '  -h, --help\tshow this help message\n',
     ].join('\n'),
   )
