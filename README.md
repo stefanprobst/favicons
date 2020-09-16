@@ -48,3 +48,24 @@ following to the `<head>` element:
 Note: `favicon.ico` and the android icons don't need to be referenced explicitly
 as long as they live in the root folder (the browser will automatically find
 them there).
+
+## How to use in Node.js
+
+It is possible to use the generator programmatically from Node.js:
+
+```js
+const { generate } = require('@stefanprobst/favicons')
+
+async function createFavicons() {
+  const stats = await generate({
+    inputFilePath,
+    outputFolder,
+    name,
+    shortName,
+    color,
+    maskable,
+    startUrl,
+  })
+  console.log(stats)
+}
+```
