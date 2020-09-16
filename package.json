@@ -6,7 +6,7 @@
   "author": "Stefan Probst <stefanprobst@kolabnow.com>",
   "license": "MIT",
   "bin": {
-    "create-favicons": "src/index.js"
+    "create-favicons": "src/cli.js"
   },
   "files": [
     "src"
