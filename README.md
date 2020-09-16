@@ -13,6 +13,9 @@ Options:
 - `-n`, `--name`: name for webmanifest (optional)
 - `-s`, `--short`: short name for webmanifest (optional)
 - `-c`, `--color`: theme color for webmanifest (optional)
+- `-m`, `--maskable`: mark images as maskable (optional)
+- `-u`, `--url`: set the start_url path (optional)
+- `-h`, `--help`: show help message
 
 If the `--color` option is not provided, the theme color will be set to the
 image's dominant color.
