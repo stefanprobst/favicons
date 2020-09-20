@@ -136,11 +136,7 @@ function toHexColor(color) {
 function getDensity(size, { format, width, height, density }) {
   if (format !== 'svg' || !width || !height || !density) return undefined
   const value = (size / Math.max(width, height)) * density
-  /**
-   * sharp currently only allows a max dpi of 2400.
-   * @see https://github.com/lovell/sharp/pull/2348
-   */
-  return Math.min(value, 2400)
+  return value
 }
 
 function cleanup(fileNames) {
