@@ -657,10 +657,10 @@
   resolved "https://registry.yarnpkg.com/@stefanprobst/commitlint-config/-/commitlint-config-1.0.0.tgz#6830630825cd53a9b5899560ed173f3613af03d6"
   integrity sha512-8RQ3yrYxGt360wBtpS9sBgjvjyeYYUTn5NTR6z7/lWHnXLgDc2Vd4iRyyNLAfO/Rd8GQ8sSf7kS5R//01JlzHA==
 
-"@stefanprobst/eslint-config-node@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@stefanprobst/eslint-config-node/-/eslint-config-node-1.0.3.tgz#1e34d957142364d3afae949fca2ccda19fd417e0"
-  integrity sha512-9PbjSI6J4x9SxvQdwwo4y4HKwvWtx8QW795QdALARZY+DRTZ/1TJ38urZyCxk4KrjUfAQoVgHev1WHdSo/6rLA==
+"@stefanprobst/eslint-config-node@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@stefanprobst/eslint-config-node/-/eslint-config-node-1.0.4.tgz#9973d9d5eec088f22c9235be9bb9a174b6e6ca85"
+  integrity sha512-so5+i1yZIvZhB9YpRKVADvJ/Tf7d8ix65AgT/w4zFxmOLmJXaMo0FPFmHsIKmFaS5o0Z7IC4zW398/1UkiNm/Q==
 
 "@stefanprobst/prettier-config@^1.0.0":
   version "1.0.0"
