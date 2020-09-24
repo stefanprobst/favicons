@@ -54,7 +54,7 @@ them there).
 It is possible to use the generator programmatically from Node.js:
 
 ```js
-const { generate } = require('@stefanprobst/favicons')
+const generate = require('@stefanprobst/favicons')
 
 async function createFavicons() {
   const stats = await generate({

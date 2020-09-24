@@ -1,20 +1,18 @@
-#!/usr/bin/env node
-
-const { existsSync, mkdirSync } = require('fs')
-const { join } = require('path')
-const parseArgs = require('mri')
-const { generate } = require('.')
+import { existsSync, mkdirSync } from 'fs'
+import { join } from 'path'
+import parseArgs from 'mri'
+import generate from '.'
 
 const log = {
-  success(message) {
+  success(message: string) {
     console.log('✅', message)
   },
-  error(message) {
+  error(message: string) {
     console.error('⛔', message)
   },
 }
 
-function formatFileSize(size) {
+function formatFileSize(size: number) {
   if (size < 1024) {
     return `${size} bytes`
   }

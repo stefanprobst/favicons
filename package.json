@@ -1,21 +1,26 @@
 {
   "name": "@stefanprobst/favicons",
-  "version": "1.0.3",
-  "main": "src/index.js",
+  "version": "1.0.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:stefanprobst/favicons.git",
   "author": "Stefan Probst <stefanprobst@kolabnow.com>",
   "license": "MIT",
   "bin": {
-    "create-favicons": "src/cli.js"
+    "create-favicons": "dist/cli.js"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
     "format": "prettier . -l --ignore-path .gitignore",
     "format:fix": "yarn format --write",
     "lint": "eslint . --ignore-path .gitignore",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "prebuild": "yarn clean",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "mri": "^1.1.6",
@@ -26,10 +31,16 @@
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
     "@stefanprobst/commitlint-config": "^1.0.0",
-    "@stefanprobst/eslint-config-node": "^1.0.2",
+    "@stefanprobst/eslint-config-node": "^1.0.3",
     "@stefanprobst/prettier-config": "^1.0.0",
+    "@types/mri": "^1.1.0",
+    "@types/sharp": "^0.26.0",
+    "@types/to-ico": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.0",
     "eslint-plugin-node": "^11.1.0",
@@ -37,7 +48,9 @@
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "^10.2.13",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=12.9",
@@ -60,8 +73,8 @@
     }
   },
   "lint-staged": {
-    "*.(js|jsx|ts|tsx)": "eslint --cache --fix",
-    "*.(json,md,mdx)": "prettier --write"
+    "*.(js|ts)": "eslint --cache --fix",
+    "*.(json,md)": "prettier --write"
   },
   "prettier": "@stefanprobst/prettier-config"
 }
