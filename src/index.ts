@@ -1,4 +1,4 @@
-import { promises as fs, unlinkSync } from 'fs'
+import { promises as fs, existsSync, unlinkSync } from 'fs'
 import { join } from 'path'
 import sharp from 'sharp'
 import toIco from 'to-ico'
@@ -60,6 +60,11 @@ export default async function generate({
   maskable,
   startUrl,
 }: Options): Promise<Stats> {
+  /** ensure output folder exists */
+  if (!existsSync(outputFolder)) {
+    await fs.mkdir(outputFolder, { recursive: true })
+  }
+
   /** create webmanifest */
 
   if (typeof color === 'string' && !color.startsWith('#')) {
