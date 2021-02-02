@@ -20,6 +20,12 @@ export type Options = {
   maskable?: boolean
   /** set the start_url path */
   startUrl?: string
+  /**
+   * File name for webmanifest.
+   *
+   * @default "site.webmanifest"
+   */
+  manifestFileName?: string
 }
 
 export type Stats = {
@@ -49,7 +55,7 @@ const formats: Array<IconFormat> = [
   ['favicon-32x32.png', 32],
   ['favicon.ico', [16, 32, 48]],
 ]
-const WEB_MANIFEST = 'site.webmanifest'
+const DEFAULT_WEB_MANIFEST = 'site.webmanifest'
 
 export default async function generate({
   inputFilePath,
@@ -59,6 +65,7 @@ export default async function generate({
   color,
   maskable,
   startUrl,
+  manifestFileName = DEFAULT_WEB_MANIFEST,
 }: Options): Promise<Stats> {
   /** ensure output folder exists */
   if (!existsSync(outputFolder)) {
@@ -97,7 +104,7 @@ export default async function generate({
     webManifest.icons.forEach((icon) => (icon.purpose = 'any maskable'))
   }
 
-  const webManifestFile = join(outputFolder, WEB_MANIFEST)
+  const webManifestFile = join(outputFolder, manifestFileName)
 
   await writeFile(webManifestFile, JSON.stringify(webManifest), {
     encoding: 'utf-8',
@@ -144,7 +151,7 @@ export default async function generate({
         const [fileName] = formats[i]
         return { fileName, size }
       }),
-      manifest: WEB_MANIFEST,
+      manifest: DEFAULT_WEB_MANIFEST,
     }
     return stats
   } catch (error) {
