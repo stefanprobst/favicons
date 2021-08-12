@@ -1,6 +1,6 @@
 {
   "name": "@stefanprobst/favicons",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:stefanprobst/favicons.git",
@@ -34,7 +34,7 @@
     "@stefanprobst/eslint-config-node": "^1.0.4",
     "@stefanprobst/prettier-config": "^1.0.0",
     "@types/mri": "^1.1.0",
-    "@types/sharp": "^0.26.0",
+    "@types/sharp": "^0.28.5",
     "@types/to-ico": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
