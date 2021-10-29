@@ -1,13 +1,13 @@
 {
   "name": "@stefanprobst/favicons",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:stefanprobst/favicons.git",
-  "author": "Stefan Probst <stefanprobst@kolabnow.com>",
   "license": "MIT",
   "bin": {
-    "create-favicons": "dist/cli.js"
+    "generate-favicons": "dist/cli.js"
   },
   "files": [
     "dist"
@@ -20,41 +20,38 @@
     "lint": "eslint . --ignore-path .gitignore",
     "lint:fix": "yarn lint --fix",
     "prebuild": "yarn clean",
+    "prepare": "simple-git-hooks || true",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "mri": "^1.1.6",
-    "sharp": "^0.28.3",
-    "to-ico": "^1.1.5"
+    "mri": "^1.2.0",
+    "sharp": "^0.29.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2",
-    "@stefanprobst/commitlint-config": "^1.0.0",
-    "@stefanprobst/eslint-config-node": "^1.0.4",
-    "@stefanprobst/prettier-config": "^1.0.0",
-    "@types/mri": "^1.1.0",
-    "@types/sharp": "^0.28.5",
-    "@types/to-ico": "^1.1.0",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
-    "eslint": "^7.8.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-typescript": "^2.3.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^24.0.0",
+    "@commitlint/cli": "^13.2.1",
+    "@stefanprobst/commitlint-config": "^1.0.2",
+    "@stefanprobst/eslint-config-node": "^3.0.0",
+    "@stefanprobst/prettier-config": "^2.0.0",
+    "@types/sharp": "^0.29.2",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^25.2.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.2.5",
-    "jest": "^26.4.2",
-    "lint-staged": "^10.2.13",
-    "prettier": "^2.1.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.0.3"
+    "simple-git-hooks": "^2.7.0",
+    "typescript": "^4.4.4"
   },
   "engines": {
-    "node": ">=12.9",
-    "yarn": "^1"
+    "node": ">=14.17",
+    "yarn": "1.x"
   },
   "commitlint": {
     "extends": [
@@ -64,17 +61,23 @@
   "eslintConfig": {
     "extends": [
       "@stefanprobst/eslint-config-node"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+    ],
+    "rules": {
+      "@typescript-eslint/naming-convention": "off",
+      "@typescript-eslint/strict-boolean-expressions": "off"
     }
   },
   "lint-staged": {
-    "*.(js|ts)": "eslint --cache --fix",
-    "*.(json,md)": "prettier --write"
+    "*.(js|ts)": [
+      "eslint --cache --fix"
+    ],
+    "*.(json,md)": [
+      "prettier --write"
+    ]
   },
-  "prettier": "@stefanprobst/prettier-config"
+  "prettier": "@stefanprobst/prettier-config",
+  "simple-git-hooks": {
+    "commit-msg": "yarn commitlint --edit",
+    "pre-commit": "yarn lint-staged"
+  }
 }

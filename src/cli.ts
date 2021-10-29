@@ -2,8 +2,12 @@
 
 import { existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
+
 import parseArgs from 'mri'
+
 import generate from '.'
+
+/* eslint-disable no-console */
 
 const log = {
   success(message: string) {
@@ -66,7 +70,7 @@ async function run() {
     typeof output !== 'string'
   ) {
     showHelpMessage()
-    return Promise.resolve()
+    return
   }
 
   const inputFilePath = join(process.cwd(), input)
@@ -74,7 +78,7 @@ async function run() {
 
   if (!existsSync(inputFilePath)) {
     log.error('Input file not found.')
-    return Promise.resolve()
+    return
   }
 
   if (!existsSync(outputFolder)) {
@@ -82,7 +86,7 @@ async function run() {
       mkdirSync(outputFolder)
     } catch (error) {
       log.error('Unable to create output folder.')
-      return Promise.resolve()
+      return
     }
   }
 
@@ -106,8 +110,8 @@ async function run() {
       ].join('\n'),
     )
   } catch (error) {
-    log.error(error)
-    return Promise.resolve()
+    log.error(String(error))
+    return
   }
 }
 
@@ -116,14 +120,14 @@ function showHelpMessage() {
     [
       'Usage: create-favicons -i [FILE] -o [FOLDER] [...OPTIONS]\n',
       'Options:\n',
-      '  -i, --input\tpath to input file',
-      '  -o, --output\tpath to output folder',
-      '  -n, --name\tname for webmanifest (optional)',
-      '  -s, --short\tshort name for webmanifest (optional)',
-      '  -c, --color\ttheme color for webmanifest (optional)',
+      '  -i, --input\t\tpath to input file',
+      '  -o, --output\t\tpath to output folder',
+      '  -n, --name\t\tname for webmanifest (optional)',
+      '  -s, --short\t\tshort name for webmanifest (optional)',
+      '  -c, --color\t\ttheme color for webmanifest (optional)',
       '  -m, --maskable\tmark images as maskable (optional)',
-      '  -u, --url\tset the start_url path (optional)',
-      '  -h, --help\tshow this help message\n',
+      '  -u, --url\t\tset the start_url path (optional)',
+      '  -h, --help\t\tshow this help message\n',
     ].join('\n'),
   )
 }

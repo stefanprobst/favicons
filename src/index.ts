@@ -1,7 +1,9 @@
 import { promises as fs, existsSync, unlinkSync } from 'fs'
 import { join } from 'path'
+
 import sharp from 'sharp'
-import toIco from 'to-ico'
+
+import { toIco } from './to-ico'
 
 const { stat, writeFile } = fs
 
@@ -51,9 +53,7 @@ const formats: Array<IconFormat> = [
   ['android-chrome-192x192.png', 192],
   ['android-chrome-512x512.png', 512],
   ['apple-touch-icon.png', 180],
-  ['favicon-16x16.png', 16],
-  ['favicon-32x32.png', 32],
-  ['favicon.ico', [16, 32, 48]],
+  ['favicon.ico', [32]],
 ]
 const DEFAULT_WEB_MANIFEST = 'site.webmanifest'
 
@@ -75,6 +75,7 @@ export default async function generate({
   /** create webmanifest */
 
   if (typeof color === 'string' && !color.startsWith('#')) {
+    // eslint-disable-next-line no-param-reassign
     color = '#' + color
   }
 
@@ -129,7 +130,7 @@ export default async function generate({
             return sharp(inputFilePath, { density })
               .png()
               .resize(s, s)
-              .toBuffer()
+              .toBuffer({ resolveWithObject: true })
           }),
         )
           .then((buffers) => toIco(buffers))
