@@ -13,21 +13,21 @@ export type Options = {
   /** path to output folder */
   outputFolder: string
   /** name for webmanifest */
-  name?: string
+  name?: string | undefined
   /** short_name for webmanifest */
-  shortName?: string
+  shortName?: string | undefined
   /** theme color for webmanifest */
-  color?: string
+  color?: string | undefined
   /** mark images as maskable */
-  maskable?: boolean
+  maskable?: boolean | undefined
   /** set the start_url path */
-  startUrl?: string
+  startUrl?: string | undefined
   /**
    * File name for webmanifest.
    *
    * @default "site.webmanifest"
    */
-  manifestFileName?: string
+  manifestFileName?: string | undefined
 }
 
 export type Stats = {
@@ -115,35 +115,31 @@ export default async function generate({
 
   const inputMetadata = await sharp(inputFilePath).metadata()
 
-  const transformers: Array<Promise<{ size: number }>> = formats.map(
-    ([outputFileName, size]) => {
-      const outputPath = join(outputFolder, outputFileName)
+  const transformers: Array<Promise<{ size: number }>> = formats.map(([outputFileName, size]) => {
+    const outputPath = join(outputFolder, outputFileName)
 
-      /**
-       * .ico format needs to be handled separately - sharp support for .ico
-       * depends on globally installed libvips compiled with imagemagick support
-       */
-      if (Array.isArray(size)) {
-        return Promise.all(
-          size.map((s) => {
-            const density = getDensity(s, inputMetadata)
-            return sharp(inputFilePath, { density })
-              .png()
-              .resize(s, s)
-              .toBuffer({ resolveWithObject: true })
-          }),
-        )
-          .then((buffers) => toIco(buffers))
-          .then((buffer) => writeFile(outputPath, buffer))
-          .then(() => stat(outputPath))
-      }
+    /**
+     * .ico format needs to be handled separately - sharp support for .ico
+     * depends on globally installed libvips compiled with imagemagick support
+     */
+    if (Array.isArray(size)) {
+      return Promise.all(
+        size.map((s) => {
+          const density = getDensity(s, inputMetadata)
+          return sharp(inputFilePath, { density })
+            .png()
+            .resize(s, s)
+            .toBuffer({ resolveWithObject: true })
+        }),
+      )
+        .then((buffers) => toIco(buffers))
+        .then((buffer) => writeFile(outputPath, buffer))
+        .then(() => stat(outputPath))
+    }
 
-      const density = getDensity(size, inputMetadata)
-      return sharp(inputFilePath, { density })
-        .resize(size, size)
-        .toFile(outputPath)
-    },
-  )
+    const density = getDensity(size, inputMetadata)
+    return sharp(inputFilePath, { density }).resize(size, size).toFile(outputPath)
+  })
 
   try {
     const favicons = await Promise.all(transformers)
@@ -184,10 +180,7 @@ function toHexColor(color: { r: number; g: number; b: number }) {
  * for a different approach
  * @see https://github.com/itgalaxy/favicons/blob/master/src/helpers.js#L42-L97
  */
-function getDensity(
-  size: number,
-  { format, width, height, density }: sharp.Metadata,
-) {
+function getDensity(size: number, { format, width, height, density }: sharp.Metadata) {
   if (format !== 'svg' || !width || !height || !density) return undefined
   const value = (size / Math.max(width, height)) * density
   return value
