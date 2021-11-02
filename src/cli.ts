@@ -5,7 +5,7 @@ import { join } from 'path'
 
 import parseArgs from 'mri'
 
-import generate from '.'
+import generate from './index.js'
 
 /* eslint-disable no-console */
 
@@ -51,24 +51,9 @@ function getOptions() {
 }
 
 async function run() {
-  const {
-    input,
-    output,
-    name,
-    shortName,
-    color,
-    maskable,
-    startUrl,
-    help,
-  } = getOptions()
+  const { input, output, name, shortName, color, maskable, startUrl, help } = getOptions()
 
-  if (
-    help ||
-    !input ||
-    !output ||
-    typeof input !== 'string' ||
-    typeof output !== 'string'
-  ) {
+  if (help || !input || !output || typeof input !== 'string' || typeof output !== 'string') {
     showHelpMessage()
     return
   }
@@ -104,9 +89,7 @@ async function run() {
     log.success(
       [
         'Successfully generated favicons!',
-        ...stats.images.map(
-          ({ fileName, size }) => `${fileName}: ${formatFileSize(size)}`,
-        ),
+        ...stats.images.map(({ fileName, size }) => `${fileName}: ${formatFileSize(size)}`),
       ].join('\n'),
     )
   } catch (error) {

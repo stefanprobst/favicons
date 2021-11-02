@@ -3,7 +3,7 @@ import { join } from 'path'
 
 import sharp from 'sharp'
 
-import { toIco } from './to-ico'
+import { toIco } from './to-ico.js'
 
 const { stat, writeFile } = fs
 
