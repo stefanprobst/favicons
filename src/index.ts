@@ -127,8 +127,9 @@ export default async function generate({
         size.map((s) => {
           const density = getDensity(s, inputMetadata)
           return sharp(inputFilePath, { density })
-            .png()
             .resize(s, s)
+            .ensureAlpha(0)
+            .raw({ depth: 'uchar' })
             .toBuffer({ resolveWithObject: true })
         }),
       )
