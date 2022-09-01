@@ -1,22 +1,9 @@
-#!/usr/bin/env node
-
+import { log } from '@stefanprobst/log'
 import { existsSync, mkdirSync } from 'fs'
+import parseArgs from 'mri'
 import { join } from 'path'
 
-import parseArgs from 'mri'
-
 import generate from './index.js'
-
-/* eslint-disable no-console */
-
-const log = {
-  success(message: string) {
-    console.log('✅', message)
-  },
-  error(message: string) {
-    console.error('⛔', message)
-  },
-}
 
 function formatFileSize(size: number) {
   if (size < 1024) {

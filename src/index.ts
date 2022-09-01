@@ -1,6 +1,6 @@
-import { promises as fs, existsSync, unlinkSync } from 'fs'
+import { existsSync, promises as fs, unlinkSync } from 'fs'
 import { join } from 'path'
-
+import type { FitEnum } from 'sharp'
 import sharp from 'sharp'
 
 import { toIco } from './to-ico.js'
@@ -75,7 +75,6 @@ export default async function generate({
   /** create webmanifest */
 
   if (typeof color === 'string' && !color.startsWith('#')) {
-    // eslint-disable-next-line no-param-reassign
     color = '#' + color
   }
 
@@ -193,4 +192,24 @@ function cleanup(fileNames: Array<string>) {
   } catch (error) {
     // file was not created
   }
+}
+
+type SocialImageOptions = {
+  background?: string
+  fit?: keyof FitEnum
+  height?: number
+  width?: number
+}
+
+export function generateSocialImage(
+  inputFilePath: string,
+  outputFilePath: string,
+  options: SocialImageOptions = {},
+) {
+  const { width = 1200, height = 628, fit = 'contain', background = 'transparent' } = options
+
+  return sharp(inputFilePath)
+    .resize({ width, height, fit, background })
+    .webp()
+    .toFile(outputFilePath)
 }

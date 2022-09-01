@@ -1,13 +1,14 @@
 {
-  "debug.node.autoAttach": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.enable": true,
-  "eslint.format.enable": true,
+  "eslint.validate": ["javascript", "typescript"],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "[markdown]": {
-    "files.trimTrailingWhitespace": false
-  }
+    "editor.wordWrap": "on"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
