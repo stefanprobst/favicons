@@ -126,7 +126,7 @@ export default async function generate({
         size.map((s) => {
           const density = getDensity(s, inputMetadata)
           return sharp(inputFilePath, { density })
-            .resize(s, s)
+            .resize({ width: s, height: s, fit: 'contain' })
             .ensureAlpha(0)
             .raw({ depth: 'uchar' })
             .toBuffer({ resolveWithObject: true })
@@ -138,7 +138,9 @@ export default async function generate({
     }
 
     const density = getDensity(size, inputMetadata)
-    return sharp(inputFilePath, { density }).resize(size, size).toFile(outputPath)
+    return sharp(inputFilePath, { density })
+      .resize({ width: size, height: size, fit: 'contain' })
+      .toFile(outputPath)
   })
 
   try {
