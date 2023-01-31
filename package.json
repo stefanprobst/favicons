@@ -1,6 +1,6 @@
 {
   "name": "@stefanprobst/favicons",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "./dist/index.js",
   "type": "module",
   "repository": "git@github.com:stefanprobst/favicons.git",

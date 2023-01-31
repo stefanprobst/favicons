@@ -8,6 +8,12 @@ import { toIco } from './to-ico.js'
 const { stat, writeFile } = fs
 
 export type Options = {
+  /**
+   * resize strategy
+   *
+   * @default 'contain'
+   */
+  fit?: keyof FitEnum
   /** path to input file */
   inputFilePath: string
   /** path to output folder */
@@ -58,6 +64,7 @@ const formats: Array<IconFormat> = [
 const DEFAULT_WEB_MANIFEST = 'site.webmanifest'
 
 export default async function generate({
+  fit = 'contain',
   inputFilePath,
   outputFolder,
   name = '',
@@ -126,7 +133,7 @@ export default async function generate({
         size.map((s) => {
           const density = getDensity(s, inputMetadata)
           return sharp(inputFilePath, { density })
-            .resize({ width: s, height: s, fit: 'contain' })
+            .resize({ width: s, height: s, fit })
             .ensureAlpha(0)
             .raw({ depth: 'uchar' })
             .toBuffer({ resolveWithObject: true })
@@ -139,7 +146,7 @@ export default async function generate({
 
     const density = getDensity(size, inputMetadata)
     return sharp(inputFilePath, { density })
-      .resize({ width: size, height: size, fit: 'contain' })
+      .resize({ width: size, height: size, fit })
       .toFile(outputPath)
   })
 
@@ -197,9 +204,13 @@ function cleanup(fileNames: Array<string>) {
 }
 
 type SocialImageOptions = {
+  /** @default 'transparent' */
   background?: string
+  /** @default 'contain' */
   fit?: keyof FitEnum
+  /** @default 628 */
   height?: number
+  /** @default 1200 */
   width?: number
 }
 
