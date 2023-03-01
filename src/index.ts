@@ -9,6 +9,12 @@ const { stat, writeFile } = fs
 
 export type Options = {
   /**
+   * background color used with `fit: "contain"`
+   *
+   * @default 'transparent'
+   */
+  background?: string
+  /**
    * resize strategy
    *
    * @default 'contain'
@@ -70,6 +76,7 @@ export default async function generate({
   name = '',
   shortName,
   color,
+  background = 'transparent',
   maskable,
   startUrl,
   manifestFileName = DEFAULT_WEB_MANIFEST,
@@ -133,7 +140,7 @@ export default async function generate({
         size.map((s) => {
           const density = getDensity(s, inputMetadata)
           return sharp(inputFilePath, { density })
-            .resize({ width: s, height: s, fit })
+            .resize({ width: s, height: s, fit, background })
             .ensureAlpha(0)
             .raw({ depth: 'uchar' })
             .toBuffer({ resolveWithObject: true })
@@ -146,7 +153,7 @@ export default async function generate({
 
     const density = getDensity(size, inputMetadata)
     return sharp(inputFilePath, { density })
-      .resize({ width: size, height: size, fit })
+      .resize({ width: size, height: size, fit, background })
       .toFile(outputPath)
   })
 
