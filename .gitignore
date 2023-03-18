@@ -1,4 +1,13 @@
-dist/
+# dependencies
 node_modules/
+.pnpm-store/
+
+# logs
 *.log
+
+# caches
 .eslintcache
+*.tsbuildinfo
+
+# misc
+.DS_Store

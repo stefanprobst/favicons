@@ -17,8 +17,7 @@ Options:
 - `-u`, `--url`: set the start_url path (optional)
 - `-h`, `--help`: show help message
 
-If the `--color` option is not provided, the theme color will be set to the
-image's dominant color.
+If the `--color` option is not provided, the theme color will be set to the image's dominant color.
 
 Example:
 
@@ -35,8 +34,8 @@ The following files are generated:
 - `favicon-32x32.png` (32x32px)
 - `favicon.ico` (16x16px, 32x32px, 48x48px)
 
-To use the generated favicons, copy them to your site's root folder, and add the
-following to the `<head>` element:
+To use the generated favicons, copy them to your site's root folder, and add the following to the
+`<head>` element:
 
 ```html
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -45,27 +44,26 @@ following to the `<head>` element:
 <link rel="manifest" href="/site.webmanifest" />
 ```
 
-Note: `favicon.ico` and the android icons don't need to be referenced explicitly
-as long as they live in the root folder (the browser will automatically find
-them there).
+Note: `favicon.ico` and the android icons don't need to be referenced explicitly as long as they
+live in the root folder (the browser will automatically find them there).
 
 ## How to use in Node.js
 
 It is possible to use the generator programmatically from Node.js:
 
 ```js
-const generate = require('@stefanprobst/favicons')
+const generate = require("@stefanprobst/favicons");
 
 async function createFavicons() {
-  const stats = await generate({
-    inputFilePath,
-    outputFolder,
-    name,
-    shortName,
-    color,
-    maskable,
-    startUrl,
-  })
-  console.log(stats)
+	const stats = await generate({
+		inputFilePath,
+		outputFolder,
+		name,
+		shortName,
+		color,
+		maskable,
+		startUrl,
+	});
+	console.log(stats);
 }
 ```

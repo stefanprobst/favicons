@@ -1,14 +1,15 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "eslint.enable": true,
-  "eslint.validate": ["javascript", "typescript"],
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "[markdown]": {
-    "editor.wordWrap": "on"
-  },
-  "typescript.tsdk": "node_modules/typescript/lib"
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.rulers": [100],
+	"files.eol": "\n",
+	"terminal.integrated.enablePersistentSessions": false,
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"[markdown]": {
+		"editor.wordWrap": "on"
+	}
 }
