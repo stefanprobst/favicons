@@ -1,6 +1,6 @@
 {
 	"name": "@stefanprobst/favicons",
-	"version": "2.2.2",
+	"version": "2.3.0",
 	"license": "MIT",
 	"repository": "git@github.com:stefanprobst/favicons.git",
 	"main": "./dist/index.js",
