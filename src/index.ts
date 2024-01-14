@@ -244,6 +244,6 @@ export function generateSocialImage(
 
 	return sharp(inputFilePath)
 		.resize({ width, height, fit, background })
-		.webp()
+		.png()
 		.toFile(outputFilePath);
 }
