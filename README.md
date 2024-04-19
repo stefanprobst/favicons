@@ -3,7 +3,7 @@
 ## How to use
 
 ```sh
-create-favicons -i [FILE] -o [FOLDER] [...OPTIONS]
+npx generate-favicons -i [FILE] -o [FOLDER] [...OPTIONS]
 ```
 
 Options:
@@ -22,7 +22,7 @@ If the `--color` option is not provided, the theme color will be set to the imag
 Example:
 
 ```sh
-create-favicons -i src/assets/images/logo.svg -o public
+npx generate-favicons -i src/assets/images/logo.svg -o public
 ```
 
 The following files are generated:
