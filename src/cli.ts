@@ -14,7 +14,16 @@ function formatFileSize(size: number) {
 }
 
 function getOptions() {
-	const args = parseArgs(process.argv.slice(2), {
+	const args = parseArgs<{
+		input: string | undefined;
+		output: string | undefined;
+		name: string | undefined;
+		short: string | undefined;
+		color: string | undefined;
+		url: string | undefined;
+		maskable: boolean | undefined;
+		help: boolean | undefined;
+	}>(process.argv.slice(2), {
 		alias: {
 			input: "i",
 			output: "o",
@@ -27,20 +36,21 @@ function getOptions() {
 		},
 	});
 	return {
-		input: args["input"],
-		output: args["output"],
-		name: args["name"],
-		shortName: args["short"],
-		color: args["color"],
-		startUrl: args["url"],
-		maskable: args["maskable"],
-		help: args["help"],
+		input: args.input,
+		output: args.output,
+		name: args.name,
+		shortName: args.short,
+		color: args.color,
+		startUrl: args.url,
+		maskable: args.maskable,
+		help: args.help,
 	};
 }
 
 async function run() {
 	const { input, output, name, shortName, color, maskable, startUrl, help } = getOptions();
 
+	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 	if (help || !input || !output || typeof input !== "string" || typeof output !== "string") {
 		showHelpMessage();
 		return;
@@ -105,4 +115,6 @@ function showHelpMessage() {
 	);
 }
 
-run().catch(log.error);
+run().catch((error) => {
+	log.error(error);
+});

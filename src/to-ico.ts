@@ -94,9 +94,8 @@ export function toIco(images: Array<Img>): Buffer {
 	});
 
 	for (let i = 0; i < images.length; ++i) {
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const image = images[i]!;
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 		const bitmap = bitmaps[i]!;
 
 		const dir = createDirectory(image, offset);

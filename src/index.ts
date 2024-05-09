@@ -1,13 +1,12 @@
 import { existsSync, promises as fs, unlinkSync } from "fs";
 import { join } from "path";
-import type { FitEnum } from "sharp";
-import sharp from "sharp";
+import sharp, { type FitEnum } from "sharp";
 
 import { toIco } from "./to-ico.js";
 
 const { stat, writeFile } = fs;
 
-export type Options = {
+export interface Options {
 	/**
 	 * background color used with `fit: "contain"`
 	 *
@@ -40,16 +39,16 @@ export type Options = {
 	 * @default "site.webmanifest"
 	 */
 	manifestFileName?: string | undefined;
-};
+}
 
-export type Stats = {
+export interface Stats {
 	/** paths and sizes (in bytes) of generated images */
 	images: Array<{ fileName: string; size: number }>;
 	/** path to generated webmanifest */
 	manifest: string;
-};
+}
 
-type WebManifest = {
+interface WebManifest {
 	name: string;
 	short_name: string;
 	icons: Array<{ src: string; sizes: string; type: string; purpose?: string }>;
@@ -57,7 +56,7 @@ type WebManifest = {
 	background_color: string;
 	display: string;
 	start_url: string;
-};
+}
 
 type IconFormat = [string, Array<number> | number];
 
@@ -88,11 +87,11 @@ export default async function generate({
 
 	/** create webmanifest */
 
-	const themeColor = color || (await getDominantColor(inputFilePath));
+	const themeColor = color ?? (await getDominantColor(inputFilePath));
 
 	const webManifest: WebManifest = {
 		name,
-		short_name: shortName || name,
+		short_name: shortName ?? name,
 		icons: [
 			{
 				src: "/android-chrome-192x192.png",
@@ -108,7 +107,7 @@ export default async function generate({
 		theme_color: themeColor,
 		background_color: themeColor,
 		display: "standalone",
-		start_url: startUrl || "/",
+		start_url: startUrl ?? "/",
 	};
 	if (maskable) {
 		webManifest.icons.forEach((icon) => {
@@ -165,7 +164,6 @@ export default async function generate({
 		const favicons = await Promise.all(transformers);
 		const stats: Stats = {
 			images: favicons.map(({ size }, i) => {
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const [fileName] = formats[i]!;
 				return { fileName, size };
 			}),
@@ -224,7 +222,7 @@ function cleanup(fileNames: Array<string>) {
 	}
 }
 
-type SocialImageOptions = {
+interface SocialImageOptions {
 	/** @default 'transparent' */
 	background?: string;
 	/** @default 'contain' */
@@ -233,7 +231,7 @@ type SocialImageOptions = {
 	height?: number;
 	/** @default 1200 */
 	width?: number;
-};
+}
 
 export function generateSocialImage(
 	inputFilePath: string,
